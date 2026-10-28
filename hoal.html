@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hóa Học Đại Cương - Học Tập & Ôn Luyện 8 Chương</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --font: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+      --mono: 'JetBrains Mono', Consolas, monospace;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --subtle: #f1f5f9;
+      --border: #e2e8f0;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-subtle: #eff6ff;
+      --accent: #0ea5e9;
+      --success: #10b981;
+      --success-subtle: #ecfdf5;
+      --danger: #ef4444;
+      --danger-subtle: #fef2f2;
+      --warning: #f59e0b;
+      --warning-subtle: #fffbeb;
+      --radius: 12px;
+      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.08);
+      --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    [data-theme="dark"] {
+      --bg: #0b1120;
+      --surface: #1e293b;
+      --subtle: #172033;
+      --border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #3b82f6;
+      --primary-hover: #60a5fa;
+      --primary-subtle: rgba(59, 130, 246, 0.15);
+      --accent: #38bdf8;
+      --success: #10b981;
+      --success-subtle: rgba(16, 185, 129, 0.15);
+      --danger: #f87171;
+      --danger-subtle: rgba(239, 68, 68, 0.15);
+      --warning: #fbbf24;
+      --warning-subtle: rgba(245, 158, 11, 0.15);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font); background: var(--bg); color: var(--text); line-height: 1.6; transition: background 0.3s, color 0.3s; }
+    header { background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 50; }
+    .header-in { max-width: 1100px; margin: 0 auto; padding: 0.8rem 1rem; display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit; }
+    .brand-icon { width: 38px; height: 38px; border-radius: 10px; background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 800; }
+    .theme-btn { background: var(--subtle); border: 1px solid var(--border); color: var(--text); padding: 0.45rem 0.85rem; border-radius: 999px; font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; }
+    main { max-width: 1100px; margin: 0 auto; padding: 1.25rem 1rem 3rem; }
+    .nav-bar { display: flex; gap: 0.4rem; overflow-x: auto; padding: 0.4rem; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; }
+    .tab-btn { flex: 0 0 auto; padding: 0.55rem 0.9rem; background: transparent; border: none; border-radius: 8px; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; transition: var(--transition); }
+    .tab-btn:hover { background: var(--subtle); color: var(--text); }
+    .tab-btn.active { background: var(--primary); color: #fff; }
+    .tab-btn .badge { background: rgba(0,0,0,0.1); padding: 0.15rem 0.4rem; border-radius: 999px; font-size: 0.72rem; }
+    .tab-btn.active .badge { background: rgba(255,255,255,0.25); color: #fff; }
+    .banner { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1.25rem; box-shadow: var(--shadow); }
+    .ch-tag { background: var(--primary-subtle); color: var(--primary); padding: 0.2rem 0.6rem; border-radius: 999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+    .subtabs { display: flex; gap: 0.4rem; background: var(--subtle); padding: 0.3rem; border-radius: 8px; width: fit-content; margin-top: 1rem; }
+    .subtab-btn { background: transparent; border: none; padding: 0.5rem 1rem; border-radius: 6px; font-size: 0.85rem; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+    .subtab-btn.active { background: var(--surface); color: var(--primary); box-shadow: var(--shadow); }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; margin-bottom: 1.25rem; box-shadow: var(--shadow); }
+    .formula { background: var(--subtle); border-left: 3px solid var(--primary); padding: 0.75rem 1rem; margin: 0.75rem 0; font-family: var(--mono); font-size: 0.9rem; color: var(--primary); }
+    .callout { background: var(--primary-subtle); border-radius: 8px; padding: 0.85rem 1rem; margin: 0.85rem 0; font-size: 0.9rem; }
+    .styled-table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.85rem; }
+    .styled-table th, .styled-table td { padding: 0.6rem 0.85rem; border: 1px solid var(--border); text-align: left; }
+    .styled-table th { background: var(--subtle); }
+    .prog-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: 1rem; }
+    .prog-track { width: 100%; height: 8px; background: var(--subtle); border-radius: 999px; overflow: hidden; margin-top: 0.5rem; }
+    .prog-fill { height: 100%; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width 0.3s; }
+    .q-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 1rem; }
+    .q-title { font-weight: 700; margin-bottom: 0.85rem; font-size: 0.98rem; }
+    .opts { display: flex; flex-direction: column; gap: 0.5rem; }
+    .opt-btn { background: var(--subtle); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem 0.9rem; text-align: left; font-size: 0.9rem; color: var(--text); cursor: pointer; display: flex; align-items: center; gap: 0.7rem; transition: var(--transition); }
+    .opt-btn:hover:not(:disabled) { border-color: var(--primary); transform: translateY(-1px); }
+    .opt-letter { width: 24px; height: 24px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; flex-shrink: 0; }
+    .opt-btn.is-correct { background: var(--success-subtle) !important; border-color: var(--success) !important; animation: pop 0.3s; }
+    .opt-btn.is-correct .opt-letter { background: var(--success); color: #fff; }
+    .opt-btn.is-wrong { background: var(--danger-subtle) !important; border-color: var(--danger) !important; animation: shake 0.35s; }
+    .opt-btn.is-wrong .opt-letter { background: var(--danger); color: #fff; }
+    @keyframes pop { 0%{transform:scale(1)} 50%{transform:scale(1.02)} 100%{transform:scale(1)} }
+    @keyframes shake { 0%,100%{transform:translateX(0)} 25%,75%{transform:translateX(-3px)} 50%{transform:translateX(3px)} }
+    .exp-box { margin-top: 0.85rem; padding: 0.85rem 1rem; border-radius: 8px; background: var(--subtle); border-left: 3px solid var(--primary); font-size: 0.88rem; line-height: 1.5; }
+    .res-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 2rem 1.5rem; text-align: center; margin-top: 1.5rem; }
+    .res-score { font-size: 2.2rem; font-weight: 800; color: var(--primary); }
+    .action-btn { background: var(--primary); color: #fff; border: none; padding: 0.7rem 1.5rem; border-radius: 999px; font-weight: 700; font-size: 0.9rem; cursor: pointer; margin-top: 1rem; transition: var(--transition); }
+    .action-btn:hover { background: var(--primary-hover); transform: translateY(-1px); }
+    .grid-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-top: 1rem; }
+    .sum-item { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; display: flex; flex-direction: column; justify-content: space-between; gap: 0.75rem; }
+  </style>
+</head>
+<body data-theme="light">
+  <header>
+    <div class="header-in">
+      <a href="#" class="brand" onclick="goTab(0);return false;">
+        <div class="brand-icon">⚗️</div>
+        <div>
+          <h1 style="font-size:1.1rem;font-weight:700;">HÓA ĐẠI CƯƠNG</h1>
+          <p style="font-size:0.75rem;color:var(--text-muted);">8 Chương Lý Thuyết & 80 Câu Trắc Nghiệm Chuẩn</p>
+        </div>
+      </a>
+      <button class="theme-btn" onclick="toggleTheme()"><span id="themeIco">🌙</span> <span id="themeLbl">Tối</span></button>
+    </div>
+  </header>
+
+  <main>
+    <div class="nav-bar" id="chNav"></div>
+
+    <div class="banner" id="chBanner">
+      <span class="ch-tag" id="bnTag">Chương 1</span>
+      <h2 style="font-size:1.35rem;font-weight:800;margin:0.4rem 0;" id="bnTitle">Tiêu đề</h2>
+      <p style="font-size:0.9rem;color:var(--text-muted);" id="bnDesc">Mô tả tóm tắt</p>
+      <div class="subtabs">
+        <button class="subtab-btn active" id="subTheory" onclick="goSub('theory')">📖 Lý thuyết ôn tập</button>
+        <button class="subtab-btn" id="subQuiz" onclick="goSub('quiz')">✍️ Trắc nghiệm (<span id="qCount">0/10</span>)</button>
+      </div>
+    </div>
+
+    <div id="mainView"></div>
+  </main>
+
+  <footer style="text-align:center;padding:1.5rem;font-size:0.8rem;color:var(--text-muted);">
+    Hệ thống tài liệu ôn thi Hóa Đại Cương theo chuẩn ĐHQG-HCM & Trường ĐH Bách Khoa.
+  </footer>
+
+  <script>
+    const state = { curCh: 0, sub: 'theory', theme: 'light', userAns: {}, quizData: {} };
+
+    const DATA = [
+      {
+        t: "Các Khái Niệm Và Định Luật Cơ Sở",
+        d: "Khối lượng nguyên tử, mol, định luật bảo toàn khối lượng, tỉ lệ bội, đương lượng và khí lý tưởng, khí thực.",
+        th: `
+          <div class="card">
+            <h3 style="color:var(--primary);margin-bottom:0.75rem;">1. Các khái niệm & Định luật cơ sở</h3>
+            <p><strong>• Nguyên tử & Phân tử:</strong> Nguyên tử là tiểu phân nhỏ nhất của nguyên tố hóa học, không phân chia được nữa về mặt hóa học và được bảo toàn trong phản ứng hóa học (Karlsruhe 1860). Phân tử là tiểu phân nhỏ nhất của chất nguyên chất có khả năng tồn tại độc lập.</p>
+            <div class="formula">1 amu = 1 đvC = 1/12 khối lượng ¹²C ≈ 1,66054 × 10⁻²⁴ g = 1,66054 × 10⁻²⁷ kg</div>
+            <p><strong>• Mol & Số Avogadro:</strong> 1 mol chứa N_A = 6,02214 × 10²³ hạt vi mô.</p>
+            <div class="callout">
+              <strong>Định luật thành phần không đổi (Proust) & Hợp chất phi tỉ lượng:</strong>
+              Hợp chất <em>Daltonit</em> có thành phần cố định (H₂O, CO₂). Hợp chất <em>Berthollit</em> (như TiO_x, Fe₀,₉₅O) có thành phần biến đổi phụ thuộc điều kiện chế tạo và khuyết tật mạng tinh thể.
+            </div>
+            <p><strong>• Định luật đương lượng (Dalton):</strong> Đ = M / z. Axit: z = số H⁺ trao đổi (H₂SO₄ trung hòa hoàn toàn z=2 ⇒ Đ=49). Phản ứng oxy hóa - khử: z = số e trao đổi (KMnO₄ trong mt axit nhận 5e ⇒ z=5 ⇒ Đ=158/5=31,6).</p>
+            <p style="margin-top:0.75rem;"><strong>• Phương trình khí thực Van der Waals:</strong></p>
+            <div class="formula">(P + n²a / V²)(V - nb) = nRT</div>
+            <p>Số hạng (n²a/V²) là áp suất nội tại do lực hút tương hỗ giữa các phân tử khí; b là thể tích riêng của các phân tử.</p>
+          </div>
+        `,
+        qs: [
+          { q: "Đơn vị khối lượng nguyên tử (amu hay đvC) được quy ước theo đồng vị nào và có khối lượng bằng bao nhiêu gam?", a: ["1/12 nguyên tử carbon-12 (¹²C), xấp xỉ 1,66054 × 10⁻²⁴ g", "1/16 nguyên tử oxy-16 (¹⁶O), xấp xỉ 1,66054 × 10⁻²⁴ g", "1/1 nguyên tử hydro-1 (¹H), xấp xỉ 1,67355 × 10⁻²⁴ g", "1/12 nguyên tử carbon-12 (¹²C), xấp xỉ 1,66054 × 10⁻²⁷ g"], c: 0, e: "Theo chuẩn quốc tế, 1 amu = 1/12 khối lượng đồng vị ¹²C = 1,66054 × 10⁻²⁴ g (tương đương 1,66054 × 10⁻²⁷ kg)." },
+          { q: "Hợp chất phi tỉ lượng (Berthollit) là hợp chất có đặc điểm nào sau đây?", a: ["Thành phần định lượng luôn cố định dù điều chế bằng cách nào.", "Thành phần thay đổi phụ thuộc vào điều kiện chế tạo và khuyết tật mạng tinh thể.", "Luôn tuân theo nghiêm ngặt định luật Proust.", "Chỉ gồm hợp chất cộng hóa trị phân cực."], c: 1, e: "Hợp chất Berthollit (như TiO_x, Fe₀,₉₅O) có thành phần thay đổi phụ thuộc điều kiện tạo thành và khuyết tật mạng." },
+          { q: "Trong phản ứng trung hòa hoàn toàn: H₂SO₄ + 2NaOH → Na₂SO₄ + 2H₂O, đương lượng của H₂SO₄ (M = 98 g/mol) là:", a: ["98 g/đlg", "49 g/đlg", "24,5 g/đlg", "196 g/đlg"], c: 1, e: "Axit trao đổi 2 H⁺ nên z = 2. Đ = M / z = 98 / 2 = 49 g/đlg." },
+          { q: "Đương lượng của thuốc tím KMnO₄ (M = 158) trong môi trường axit khi bị khử thành Mn²⁺ (trao đổi 5e) là:", a: ["158 g/đlg", "79 g/đlg", "31,6 g/đlg", "52,7 g/đlg"], c: 2, e: "KMnO₄ nhận 5 electron nên z = 5 ⇒ Đ = 158 / 5 = 31,6 g/đlg." },
+          { q: "Trong phương trình khí lý tưởng PV = nRT, khi P tính bằng atm, V tính bằng lít, hằng số R có giá trị là:", a: ["8,314 J/(mol·K)", "1,987 cal/(mol·K)", "0,08206 L·atm/(mol·K)", "22,414 L/mol"], c: 2, e: "Với P đo bằng atm và V đo bằng lít, R = 0,08206 L·atm·mol⁻¹·K⁻¹." },
+          { q: "Trong phương trình khí thực Van der Waals: (P + n²a/V²)(V - nb) = nRT, số hạng n²a/V² và b lần lượt phản ánh:", a: ["Lực đẩy tĩnh điện và năng lượng dao động phân tử.", "Áp suất nội tại do lực hút tương hỗ giữa các phân tử và thể tích riêng của các phân tử khí.", "Độ nhớt và vận tốc chuyển động Brown.", "Số va chạm phân tử và năng lượng ion hóa."], c: 1, e: "n²a/V² là áp suất nội tại do lực hút phân tử; b là thể tích riêng của các phân tử khí thực." },
+          { q: "Hỗn hợp khí gồm 0,2 mol O₂ và 0,8 mol N₂ có áp suất toàn phần là 2,5 atm. Áp suất riêng phần của O₂ là:", a: ["0,5 atm", "2,0 atm", "1,25 atm", "0,25 atm"], c: 0, e: "x_O₂ = 0,2/(0,2+0,8) = 0,2 ⇒ P_O₂ = 0,2 × 2,5 = 0,5 atm." },
+          { q: "Dãy oxit của nitơ gồm N₂O, NO, N₂O₃, NO₂, N₂O₅ là minh chứng điển hình cho định luật nào?", a: ["Định luật thành phần không đổi của Proust.", "Định luật tỉ lệ bội của Dalton.", "Định luật đương lượng của Dalton.", "Định luật bảo toàn khối lượng."], c: 1, e: "Định luật tỉ lệ bội Dalton: khối lượng oxy kết hợp với cùng 1 lượng nitơ tỉ lệ với nhau như 1:2:3:4:5." },
+          { q: "Ở áp suất không đổi (đẳng áp), khi tăng nhiệt độ tuyệt đối T lên gấp đôi thì thể tích V của khối khí sẽ:", a: ["Giảm đi một nửa", "Tăng lên gấp đôi", "Không đổi", "Tăng lên 4 lần"], c: 1, e: "Theo định luật Charles: V/T = const, T tăng gấp đôi thì V tăng gấp đôi." },
+          { q: "Trong tự nhiên, clo có hai đồng vị ³⁵Cl (75,77%) và ³⁷Cl (24,23%). Khối lượng nguyên tử trung bình của clo là:", a: ["36,00 amu", "35,48 amu", "35,50 amu", "36,50 amu"], c: 1, e: "Ā = 35 × 0,7577 + 37 × 0,2423 = 35,4846 ≈ 35,48 amu." }
+        ]
+      },
+      {
+        t: "Cấu Tạo Nguyên Tử Và Định Luật Tuần Hoàn",
+        d: "Lượng tử hóa Bohr, Heisenberg, phương trình Schrödinger, 4 số lượng tử, quy tắc Klechkovski, Hund và quy luật tuần hoàn.",
+        th: `
+          <div class="card">
+            <h3 style="color:var(--primary);margin-bottom:0.75rem;">2. Cấu tạo nguyên tử & Bảng tuần hoàn</h3>
+            <p><strong>• Tiên đề Bohr & Bán kính quỹ đạo:</strong> r_n = 0,529 · (n² / Z) Å. Bán kính tỉ lệ thuận với n².</p>
+            <p><strong>• Cơ học lượng tử:</strong> Nguyên lý bất định Heisenberg Δx·Δp_x ≥ h/(4π). Bình phương môđun hàm sóng |ψ|² biểu thị <em>mật độ xác suất tìm thấy electron</em>.</p>
+            <p><strong>• 4 số lượng tử:</strong></p>
+            <ul style="margin:0.5rem 0 0.5rem 1.25rem;">
+              <li>n (1, 2, 3...): Mức năng lượng chính, kích thước AO. Số AO trong lớp n là n²; số e tối đa là 2n².</li>
+              <li>l (0 đến n-1; s, p, d, f): Hình dạng AO (s: cầu, p: số 8 nổi, d: cánh hoa 4 thùy).</li>
+              <li>m_l (-l đến +l): Sự định hướng không gian của AO trong từ trường.</li>
+              <li>m_s (±1/2): Spin riêng của electron.</li>
+            </ul>
+            <p><strong>• Quy tắc Klechkovski:</strong> Năng lượng tăng theo tổng (n + l), nếu bằng nhau thì n nhỏ hơn điền trước (4s có n+l=4 điền trước 3d có n+l=5). Bán bão hòa sớm: Cr: [Ar]3d⁵4s¹; Cu: [Ar]3d¹⁰4s¹.</p>
+            <div class="callout">
+              <strong>Quy luật tuần hoàn:</strong> Bán kính giảm dần trong chu kỳ, tăng dần trong nhóm chính. Dãy đẳng electron: r_O²⁻ > r_F⁻ > r_Na⁺ > r_Mg²⁺ > r_Al³⁺ (Z càng lớn lực hút càng mạnh, r càng nhỏ). Năng lượng ion hóa I₁(N) > I₁(O) do phân lớp 2p³ bán bão hòa bền vững.
+            </div>
+          </div>
+        `,
+        qs: [
+          { q: "Bán kính quỹ đạo dừng thứ n trong mô hình nguyên tử Bohr tỉ lệ thuận với đại lượng nào?", a: ["n", "n²", "1/n", "căn bậc hai của n"], c: 1, e: "r_n = 0,529 · (n² / Z) Å, tỉ lệ thuận với n²." },
+          { q: "Nguyên lý bất định Heisenberg khẳng định điều nào sau đây đối với vi hạt như electron?", a: ["Không đo được bước sóng De Broglie.", "Không thể xác định đồng thời chính xác cả tọa độ vị trí và xung lượng.", "Năng lượng electron luôn liên tục.", "Vận tốc luôn bằng vận tốc ánh sáng."], c: 1, e: "Δx · Δp_x ≥ h/(4π): Không thể xác định đồng thời chính xác vị trí và xung lượng." },
+          { q: "Ý nghĩa vật lý trực tiếp của bình phương môđun hàm sóng |ψ|² là gì?", a: ["Quỹ đạo cơ học của electron.", "Mật độ xác suất tìm thấy electron tại điểm khảo sát.", "Năng lượng toàn phần của nguyên tử.", "Điện tích hiệu dụng."], c: 1, e: "|ψ|² mô tả mật độ xác suất tìm thấy electron tại vị trí khảo sát." },
+          { q: "Số lượng tử từ m_l đặc trưng cho đại lượng nào của orbital nguyên tử (AO)?", a: ["Kích thước không gian của orbital.", "Hình dạng của orbital.", "Sự định hướng không gian của orbital trong từ trường ngoài.", "Spin nội tại của electron."], c: 2, e: "m_l (-l đến +l) quyết định sự định hướng không gian của AO." },
+          { q: "Số orbital nguyên tử (AO) tối đa có trong lớp electron thứ n là:", a: ["2n", "2n²", "n²", "4n + 2"], c: 2, e: "Số AO trong lớp n là n² (số electron tối đa là 2n²)." },
+          { q: "Cấu hình electron trạng thái cơ bản của nguyên tử Crom (Cr, Z = 24) là:", a: ["[Ar] 3d⁴ 4s²", "[Ar] 3d⁵ 4s¹", "[Ar] 3d⁶ 4s⁰", "[Ar] 4s² 3d⁴"], c: 1, e: "Do cấu hình d⁴ kém bền, 1 electron 4s nhảy sang 3d tạo bán bão hòa bền vững [Ar]3d⁵4s¹." },
+          { q: "Cho các ion đẳng electron: O²⁻, F⁻, Na⁺, Mg²⁺, Al³⁺. Thứ tự GIẢM DẦN bán kính ion là:", a: ["Al³⁺ > Mg²⁺ > Na⁺ > F⁻ > O²⁻", "O²⁻ > F⁻ > Na⁺ > Mg²⁺ > Al³⁺", "Na⁺ > Mg²⁺ > Al³⁺ > O²⁻ > F⁻", "F⁻ > O²⁻ > Al³⁺ > Mg²⁺ > Na⁺"], c: 1, e: "Cùng 10 electron, ion nào có Z càng lớn thì hạt nhân hút càng mạnh làm bán kính càng nhỏ." },
+          { q: "Năng lượng ion hóa thứ nhất I₁ của Nitơ (N, Z = 7) cao hơn của Oxy (O, Z = 8) vì:", a: ["Độ âm điện của N lớn hơn O.", "Bán kính nguyên tử N lớn hơn O.", "Cấu hình 2p³ của N bán bão hòa bền vững hơn cấu hình 2p⁴ của O.", "Z của N lớn hơn O."], c: 2, e: "Cấu hình 2p³ có 3 electron độc thân đối xứng bền nhiệt động cao hơn 2p⁴ của Oxy." },
+          { q: "Theo Klechkovski, phân lớp 4s được điền electron trước phân lớp 3d vì:", a: ["3d có số lượng tử chính nhỏ hơn.", "4s có tổng (n + l) = 4, nhỏ hơn tổng (n + l) = 5 của 3d.", "4s có l lớn hơn 3d.", "4s ở xa hạt nhân hơn."], c: 1, e: "4s có n+l = 4+0 = 4; 3d có n+l = 3+2 = 5. Phân lớp có n+l nhỏ hơn có năng lượng thấp hơn." },
+          { q: "Nguyên tử X có electron cuối cùng với n = 3, l = 2, m_l = 0, m_s = +1/2. Nguyên tố X thuộc:", a: ["Chu kỳ 3, nhóm IIIA", "Chu kỳ 4, nhóm VB (họ d)", "Chu kỳ 3, nhóm VIIIA", "Chu kỳ 4, nhóm IIIB"], c: 1, e: "n=3, l=2 ⇒ 3d. Điền m_s=+1/2 vào ô -2, -1, 0 ⇒ có 3 electron (3d³). Cấu hình: [Ar]3d³4s² ⇒ Chu kỳ 4, nhóm VB (V, Z=23)." }
+        ]
+      },
+      {
+        t: "Liên Kết Hóa Học Và Cấu Tạo Phân Tử",
+        d: "Bát tử Lewis, điện tích hình thức, liên kết ion, cộng hóa trị VB (σ và π), lai hóa sp, sp2, sp3, mô hình VSEPR và liên kết Hydro.",
+        th: `
+          <div class="card">
+            <h3 style="color:var(--primary);margin-bottom:0.75rem;">3. Liên kết hóa học & Cấu trúc phân tử</h3>
+            <p><strong>• Ngoại lệ bát tử:</strong> Phân tử mở rộng vỏ hóa trị (SF₆ có 12e, PCl₅ có 10e nhờ orbital d trống).</p>
+            <p><strong>• Điện tích hình thức:</strong> FC = (e hóa trị tự do) - (e cô lập) - 1/2(e liên kết). Ví dụ O trung tâm trong O₃ có FC = 6 - 2 - 6/2 = +1.</p>
+            <p><strong>• Liên kết ion:</strong> Không có tính định hướng và không bão hòa (điện trường đối xứng cầu).</p>
+            <p><strong>• Liên kết σ & π:</strong> Liên kết σ xen phủ trục nối tâm hai hạt nhân, bền, quay tự do được. Liên kết π xen phủ bên ngoài trục, kém bền hơn σ, không quay tự do được.</p>
+            <div class="callout">
+              <strong>Lai hóa & Hình học VSEPR:</strong><br>
+              • sp (180°): Thẳng hàng (BeCl₂, CO₂).<br>
+              • sp² (120°): Tam giác phẳng (BF₃, SO₃).<br>
+              • sp³ (109,5°): Tứ diện (CH₄). Nếu có cặp e cô lập: H₂O góc 104,5° (dạng chữ V), NH₃ góc 107,3° (tháp tam giác) do lực đẩy (cô lập - cô lập) > (cô lập - lk) > (lk - lk).<br>
+              • sp³d: SF₄ (bập bênh - seesaw), PCl₅ (lưỡng tháp tam giác).
+            </div>
+            <p><strong>• Liên kết Hydrogen liên phân tử:</strong> Giữa H linh động với F, O, N có độ âm điện lớn. Làm tăng vọt nhiệt độ sôi của H₂O (100°C) so với H₂S (-60°C).</p>
+          </div>
+        `,
+        qs: [
+          { q: "Phân tử nào sau đây là trường hợp ngoại lệ mở rộng vỏ hóa trị (> 8 electron)?", a: ["CH₄", "NH₃", "SF₆", "H₂O"], c: 2, e: "SF₆ có nguyên tử lưu huỳnh chu kỳ 3 tạo 6 liên kết S-F, lớp ngoài cùng mở rộng chứa 12 electron." },
+          { q: "Điện tích hình thức (FC) của nguyên tử Oxy trung tâm trong phân tử Ozon O=O⁺-O⁻ là:", a: ["0", "+1", "-1", "+2"], c: 1, e: "FC = 6 - 2 - (6/2) = +1." },
+          { q: "Đặc tính cơ bản của liên kết ion là gì?", a: ["Có tính định hướng và bão hòa cao.", "Không có tính định hướng và không có tính bão hòa.", "Chỉ tạo thành giữa các phi kim.", "Quay tự do quanh trục liên kết."], c: 1, e: "Lực hút tĩnh điện của ion có tính đối xứng cầu nên không định hướng và không bão hòa." },
+          { q: "Liên kết giữa N và ion H⁺ trong ion NH₄⁺ hình thành theo cơ chế nào?", a: ["Ghép đôi e độc thân.", "Cho - nhận (phối trí) với cặp e tự do của N góp vào AO 1s trống của H⁺.", "Liên kết ion.", "Lực London."], c: 1, e: "N trong NH₃ còn cặp e tự do cho vào orbital 1s trống của H⁺ tạo liên kết phối trí." },
+          { q: "So sánh độ bền và khả năng quay của liên kết σ và π:", a: ["π bền hơn σ, cả hai đều quay tự do.", "σ hình thành do xen phủ trục, bền hơn π và cho phép quay tự do.", "π đối xứng trục, σ không đối xứng trục.", "Cả hai đều không quay tự do được."], c: 1, e: "Liên kết σ xen phủ trục nên diện tích xen phủ lớn, bền và cho phép quay tự do." },
+          { q: "Nguyên tử Bo trong phân tử BF₃ ở trạng thái lai hóa nào và phân tử có dạng hình học gì?", a: ["sp, đường thẳng", "sp², tam giác phẳng đều 120°", "sp³, tứ diện", "sp³d, chóp tam giác"], c: 1, e: "Bo có 3 cặp electron liên kết (n=3) lai hóa sp², phân tử tam giác phẳng góc 120°." },
+          { q: "Góc liên kết H-O-H trong H₂O bằng 104,5° (nhỏ hơn 109,5°) là do:", a: ["O lai hóa sp².", "Lực đẩy mạnh của 2 cặp electron cô lập ép góc liên kết hẹp lại.", "Liên kết O-H không phân cực.", "Hiệu ứng liên kết pi."], c: 1, e: "Lực đẩy giữa cặp electron cô lập lớn hơn cặp liên kết làm ép hẹp góc liên kết trong H₂O." },
+          { q: "Theo mô hình VSEPR, phân tử SF₄ thuộc dạng AB₄E có dạng hình học là:", a: ["Tứ diện đều", "Vuông phẳng", "Bập bênh (seesaw)", "Chóp tam giác"], c: 2, e: "SF₄ có 4 liên kết và 1 cặp electron cô lập thuộc dạng lai hóa sp³d có hình học bập bênh." },
+          { q: "Phân tử CO₂ có các liên kết C=O phân cực nhưng phân tử lại không phân cực vì:", a: ["Độ âm điện C và O bằng nhau.", "Cấu trúc thẳng hàng 180° đối xứng khiến hai vectơ mômen lưỡng cực triệt tiêu nhau.", "Hiệu ứng cộng hưởng.", "Liên kết ion."], c: 1, e: "Phân tử CO₂ thẳng hàng đối xứng (O=C=O) nên tổng vectơ mômen lưỡng cực μ_pt = 0." },
+          { q: "Nước H₂O có nhiệt độ sôi cao bất thường (100°C) so với H₂S (-60°C) là do:", a: ["Liên kết O-H bền hơn S-H.", "Mạng lưới liên kết hydrogen liên phân tử bền vững giữa các phân tử H₂O.", "H₂O nhẹ hơn H₂S.", "Lực Van der Waals của nước lớn hơn."], c: 1, e: "Giữa các phân tử H₂O có liên kết hydrogen liên phân tử rất mạnh, đòi hỏi nhiều nhiệt lượng để phá vỡ." }
+        ]
+      },
+      {
+        t: "Nhiệt Động Hóa Học",
+        d: "Nguyên lý I & II nhiệt động học, hàm trạng thái, định luật Hess, biến thiên Enthalpy ΔH, Entropy ΔS và thế đẳng áp Gibbs ΔG.",
+        th: `
+          <div class="card">
+            <h3 style="color:var(--primary);margin-bottom:0.75rem;">4. Nhiệt động hóa học</h3>
+            <p><strong>• Hàm trạng thái vs Hàm đường đi:</strong> U, H, S, G là các <em>hàm trạng thái</em> (chỉ phụ thuộc trạng thái đầu và cuối). Q và A là <em>hàm đường đi</em>.</p>
+            <div class="formula">ΔH = ΔU + Δn_khí · R · T &nbsp;&nbsp;&nbsp; (R = 8,314 J/(mol·K))</div>
+            <p><strong>• Định luật Hess:</strong> ΔH°_rxn = ∑ν_p ΔH°_f(sản phẩm) - ∑ν_r ΔH°_f(chất đầu). Lưu ý: ΔH°_f của đơn chất bền nhất bằng 0 (C_graphite, O₂, N₂).</p>
+            <p><strong>• Entropy (S):</strong> Thước đo độ hỗn loạn (S_khí ≫ S_lỏng > S_rắn). Tăng số mol khí ⇒ ΔS > 0. Nguyên lý III Nernst: Ở 0 K, tinh thể hoàn hảo có S₀ = 0.</p>
+            <div class="callout">
+              <strong>Tiêu chuẩn tự phát Gibbs (ΔG = ΔH - T·ΔS ở T, P = const):</strong><br>
+              • ΔG < 0: Phản ứng tự phát theo chiều thuận.<br>
+              • ΔH < 0, ΔS > 0: Luôn luôn tự phát ở mọi nhiệt độ.<br>
+              • ΔH > 0, ΔS < 0: Không tự phát ở bất kỳ nhiệt độ nào.<br>
+              • ΔH < 0, ΔS < 0: Tự phát ở nhiệt độ thấp (T < ΔH/ΔS).<br>
+              • ΔH > 0, ΔS > 0: Tự phát ở nhiệt độ cao (T > ΔH/ΔS).
+            </div>
+          </div>
+        `,
+        qs: [
+          { q: "Trong các đại lượng: Q, A, U, H, S, G, những đại lượng nào là HÀM TRẠNG THÁI?", a: ["Chỉ có Q và A", "U, H, S, G", "Q, U, H, S", "Tất cả các đại lượng trên"], c: 1, e: "U, H, S, G là hàm trạng thái. Q (nhiệt) và A (công) là hàm đường đi." },
+          { q: "Mối liên hệ giữa biến thiên enthalpy (ΔH) và biến thiên nội năng (ΔU) trong phản ứng có chất khí là:", a: ["ΔH = ΔU - Δn_khí·RT", "ΔH = ΔU + Δn_khí·RT", "ΔU = ΔH + Δn_khí·RT", "ΔH = ΔU·RT"], c: 1, e: "ΔH = ΔU + Δ(PV) = ΔU + Δn_khí·RT." },
+          { q: "Nhiệt tạo thành tiêu chuẩn (ΔH°_f,298) của chất nào sau đây BẰNG 0?", a: ["Kim cương", "Khí ozon (O₃)", "Than chì (C_graphite) và khí O₂", "Nước lỏng"], c: 2, e: "Đơn chất ở dạng thù hình bền nhất ở điều kiện tiêu chuẩn (như than chì, O₂) có ΔH°_f = 0." },
+          { q: "Cho: 2CO(k) + O₂(k) → 2CO₂(k). ΔH°_f của CO và CO₂ lần lượt là -110,5 và -393,5 kJ/mol. Hiệu ứng nhiệt ΔH° là:", a: ["-283,0 kJ", "-566,0 kJ", "+566,0 kJ", "-504,0 kJ"], c: 1, e: "ΔH° = 2·(-393,5) - 2·(-110,5) = -787 + 221 = -566,0 kJ." },
+          { q: "Quá trình nào sau đây đi kèm với sự TĂNG ENTROPY (ΔS > 0)?", a: ["Ngưng tụ hơi nước: H₂O(k) → H₂O(l)", "Tổng hợp NH₃: N₂(k) + 3H₂(k) → 2NH₃(k)", "Thăng hoa iod: I₂(r) → I₂(k)", "Đông đặc nước đá"], c: 2, e: "Chuyển từ pha rắn trật tự sang pha khí hỗn loạn cao làm ΔS > 0." },
+          { q: "Theo Nguyên lý II, tiêu chuẩn tự phát của quá trình trong HỆ CÔ LẬP là:", a: ["ΔS_cô lập < 0", "ΔS_cô lập ≥ 0 (tăng entropy)", "ΔH_cô lập = 0", "ΔG_cô lập > 0"], c: 1, e: "Trong hệ cô lập, quá trình tự phát luôn diễn ra theo chiều tăng entropy (ΔS_cô lập ≥ 0)." },
+          { q: "Ở điều kiện đẳng nhiệt, đẳng áp, tiêu chuẩn để phản ứng tự phát theo chiều thuận là:", a: ["ΔG < 0", "ΔG > 0", "ΔH > 0", "ΔS < 0"], c: 0, e: "Tiêu chuẩn tự phát ở T, P không đổi là biến thiên thế đẳng áp Gibbs ΔG < 0." },
+          { q: "Một phản ứng có ΔH < 0 (tỏa nhiệt) và ΔS < 0 (giảm hỗn loạn) sẽ tự phát ở:", a: ["Mọi nhiệt độ", "Không ở nhiệt độ nào", "Nhiệt độ thấp (T < ΔH/ΔS)", "Nhiệt độ cao"], c: 2, e: "ΔG = ΔH - T·ΔS. Khi ΔH < 0 và ΔS < 0 thì T nhỏ giúp ΔH âm lấn át số dương -T·ΔS." },
+          { q: "Phản ứng có ΔH° = -35,8 kcal và ΔS° = -67,57 cal/K ở 298 K. Biến thiên ΔG° là:", a: ["-15,66 kcal", "-55,94 kcal", "+15,66 kcal", "-35,80 kcal"], c: 0, e: "ΔG° = -35,8 - 298 × (-0,06757 kcal/K) = -35,8 + 20,136 = -15,664 kcal." },
+          { q: "Nguyên lý III nhiệt động học của Nernst khẳng định:", a: ["Hiệu ứng nhiệt bằng 0 ở 0 K.", "Ở 0 K, entropy của chất kết tinh hoàn hảo bằng 0 (S₀ = 0).", "Năng lượng vũ trụ bảo toàn.", "Nhiệt tự truyền từ vật lạnh sang nóng."], c: 1, e: "Ở 0 K (-273,15°C), entropy của chất kết tinh hoàn hảo bằng 0 (S₀ = 0)." }
+        ]
+      },
+      {
+        t: "Cân Bằng Hóa Học",
+        d: "Bản chất cân bằng động, hằng số Kc, Kp, quan hệ Kp = Kc(RT)^Δn, phương trình ΔG° = -RT ln K và nguyên lý Le Chatelier.",
+        th: `
+          <div class="card">
+            <h3 style="color:var(--primary);margin-bottom:0.75rem;">5. Cân bằng hóa học</h3>
+            <p><strong>• Cân bằng động:</strong> Tốc độ thuận bằng tốc độ nghịch (v_t = v_n ≠ 0), nồng độ các chất không đổi.</p>
+            <div class="formula">K_p = K_c · (R·T)<sup>Δn_khí</sup> &nbsp;&nbsp;&nbsp; (Nếu Δn_khí = 0 ⇒ K_p = K_c)</div>
+            <p><strong>• Cân bằng dị thể:</strong> Chất rắn nguyên chất quy ước nồng độ = 1 (CaCO₃(r) ⇌ CaO(r) + CO₂(k) ⇒ K_c = [CO₂]; K_p = P_CO₂).</p>
+            <p><strong>• Quan hệ nhiệt động:</strong> ΔG° = -RT ln K_p. Nếu thương số Q < K ⇒ phản ứng tự diễn biến theo <strong>chiều thuận</strong>.</p>
+            <div class="callout">
+              <strong>Nguyên lý chuyển dịch Le Chatelier:</strong><br>
+              • Tăng áp suất ⇒ dịch chuyển theo chiều làm <em>giảm số mol khí</em>.<br>
+              • Tăng nhiệt độ ⇒ dịch chuyển theo chiều <em>thu nhiệt (ΔH > 0)</em>.<br>
+              • Chất xúc tác: KHÔNG làm chuyển dịch cân bằng và KHÔNG làm thay đổi K (chỉ giúp nhanh đạt cân bằng).
+            </div>
+          </div>
+        `,
+        qs: [
+          { q: "Bản chất động của cân bằng hóa học thể hiện ở điểm nào?", a: ["Các phản ứng đều dừng lại.", "Tốc độ phản ứng thuận bằng tốc độ phản ứng nghịch (v_t = v_n > 0).", "Nồng độ chất phản ứng bằng nồng độ sản phẩm.", "Hiệu suất luôn bằng 100%."], c: 1, e: "Cân bằng động nghĩa là phản ứng hai chiều vẫn tiếp diễn với tốc độ bằng nhau." },
+          { q: "Với phản ứng pha khí N₂(k) + 3H₂(k) ⇌ 2NH₃(k), mối liên hệ giữa Kp và Kc là:", a: ["Kp = Kc·(RT)²", "Kp = Kc·(RT)⁻²", "Kp = Kc", "Kp = Kc·(RT)⁻¹"], c: 1, e: "Δn_khí = 2 - (1 + 3) = -2 ⇒ Kp = Kc·(RT)⁻²." },
+          { q: "Biểu thức hằng số cân bằng Kc của phản ứng dị thể CaCO₃(r) ⇌ CaO(r) + CO₂(k) là:", a: ["Kc = [CaO][CO₂] / [CaCO₃]", "Kc = [CO₂]", "Kc = 1 / [CO₂]", "Kc = [CaO] / [CaCO₃]"], c: 1, e: "Chất rắn nguyên chất có hoạt độ quy ước bằng 1 nên Kc = [CO₂]." },
+          { q: "Mối liên hệ giữa thế đẳng áp chuẩn ΔG° và hằng số cân bằng Kp là:", a: ["ΔG° = RT ln Kp", "ΔG° = -RT ln Kp", "Kp = -ΔG° / RT", "ΔG° = -nFE°"], c: 1, e: "Phương trình Van't Hoff: ΔG° = -RT ln Kp." },
+          { q: "Tại một thời điểm, thương số phản ứng Q < K thì phản ứng sẽ:", a: ["Tự phát theo chiều nghịch.", "Tự phát theo chiều thuận để tạo thêm sản phẩm.", "Đã đạt trạng thái cân bằng.", "Dừng hẳn."], c: 1, e: "Q < K thì ΔG < 0, phản ứng diễn ra theo chiều thuận để Q tăng tiến về K." },
+          { q: "Cho cân bằng tỏa nhiệt: 2SO₂(k) + O₂(k) ⇌ 2SO₃(k) (ΔH < 0). Để chuyển dịch theo chiều thuận cần:", a: ["Tăng nhiệt độ.", "Giảm áp suất.", "Tăng áp suất và hạ nhiệt độ thích hợp.", "Thêm chất xúc tác V₂O₅."], c: 2, e: "Chiều thuận giảm mol khí (3 → 2) và tỏa nhiệt nên tăng P và giảm T sẽ thúc đẩy chiều thuận." },
+          { q: "Đối với phản ứng THU NHIỆT (ΔH° > 0), khi TĂNG NHIỆT ĐỘ thì hằng số K sẽ:", a: ["Giảm dần", "Tăng dần", "Không đổi", "Giảm về 0"], c: 1, e: "Theo Van't Hoff: d(ln K)/dT = ΔH°/RT² > 0, tăng T thì K tăng." },
+          { q: "Cho cân bằng CO(k) + H₂O(k) ⇌ CO₂(k) + H₂(k). Thêm khí trơ Heli ở THỂ TÍCH KHÔNG ĐỔI thì cân bằng sẽ:", a: ["Dịch chuyển theo chiều thuận.", "Dịch chuyển theo chiều nghịch.", "Không chuyển dịch", "Dừng lại."], c: 2, e: "V không đổi thì áp suất riêng phần và nồng độ các chất phản ứng không đổi ⇒ không chuyển dịch." },
+          { q: "Vai trò của chất xúc tác trong hệ phản ứng thuận nghịch là:", a: ["Làm tăng hiệu suất tạo sản phẩm.", "Làm tăng tốc độ cả 2 chiều như nhau giúp nhanh đạt cân bằng mà không đổi vị trí cân bằng hay K.", "Làm tăng giá trị K.", "Làm đổi ΔH."], c: 1, e: "Chất xúc tác giảm Ea cả hai chiều như nhau, không làm chuyển dịch cân bằng và không đổi K." },
+          { q: "Cân bằng (1): 1/2 N₂ + 3/2 H₂ ⇌ NH₃ có K₁. Cân bằng (2): N₂ + 3H₂ ⇌ 2NH₃ có K₂. Mối quan hệ là:", a: ["K₂ = 2 K₁", "K₂ = (K₁)²", "K₂ = căn bậc hai của K₁", "K₂ = 1 / K₁"], c: 1, e: "Nhân đôi hệ số phản ứng thì hằng số mới bằng bình phương hằng số cũ: K₂ = (K₁)²." }
+        ]
+      },
+      {
+        t: "Động Hóa Học",
+        d: "Tốc độ phản ứng, phương trình động học bậc 0, 1, 2, chu kỳ bán hủy t1/2, phương trình Arrhenius và năng lượng hoạt hóa Ea.",
+        th: `
+          <div class="card">
+            <h3 style="color:var(--primary);margin-bottom:0.75rem;">6. Động hóa học</h3>
+            <p><strong>• Phương trình động học các bậc:</strong></p>
+            <table class="styled-table">
+              <tr><th>Bậc</th><th>Phương trình tích phân</th><th>Chu kỳ bán hủy t_1/2</th><th>Đơn vị k</th></tr>
+              <tr><td><strong>0</strong></td><td>[A]_t = -kt + [A]₀</td><td>t_1/2 = [A]₀ / (2k)</td><td>M·s⁻¹</td></tr>
+              <tr><td><strong>1</strong></td><td>ln[A]_t = -kt + ln[A]₀</td><td>t_1/2 = 0,693 / k (không phụ thuộc [A]₀)</td><td>s⁻¹</td></tr>
+              <tr><td><strong>2</strong></td><td>1/[A]_t = kt + 1/[A]₀</td><td>t_1/2 = 1 / (k·[A]₀)</td><td>M⁻¹·s⁻¹</td></tr>
+            </table>
+            <p><strong>• Quy tắc Van't Hoff:</strong> v_T2 / v_T1 = γ^[(T2 - T1)/10] (γ = 2 ÷ 4).</p>
+            <div class="formula">Phương trình Arrhenius: k = A · e^(-Ea / RT) ⇔ ln(k₂/k₁) = (Ea/R)·(1/T₁ - 1/T₂)</div>
+            <div class="callout">
+              <strong>Năng lượng hoạt hóa (Ea):</strong> Năng lượng tối thiểu các phân tử cần có để khi va chạm gây ra phản ứng. Chất xúc tác mở ra con đường phản ứng mới có Ea thấp hơn làm tốc độ tăng mạnh.
+            </div>
+          </div>
+        `,
+        qs: [
+          { q: "Đại lượng đo tốc độ biến thiên nồng độ trong một đơn vị thời gian là:", a: ["Hằng số K", "Tốc độ phản ứng hóa học (v)", "Năng lượng hoạt hóa Ea", "Hiệu ứng nhiệt ΔH"], c: 1, e: "Tốc độ phản ứng v = ±dC/dt (đơn vị M/s)." },
+          { q: "Đơn vị của hằng số tốc độ k đối với phản ứng BẬC MỘ là:", a: ["mol·L⁻¹·s⁻¹", "s⁻¹ (thời gian⁻¹)", "L·mol⁻¹·s⁻¹", "L²·mol⁻²·s⁻¹"], c: 1, e: "Đơn vị k = M^(1-p)·s⁻¹. Với p = 1 thì đơn vị là M⁰·s⁻¹ = s⁻¹." },
+          { q: "Đối với phản ứng BẬC MỘ, chu kỳ bán hủy t_1/2 có đặc điểm:", a: ["Tỉ lệ thuận với [A]₀", "Tỉ lệ nghịch với [A]₀", "Không phụ thuộc vào nồng độ ban đầu [A]₀", "Bằng k"], c: 2, e: "Phản ứng bậc 1 có t_1/2 = 0,693/k, hoàn toàn độc lập với nồng độ ban đầu." },
+          { q: "Đối với phản ứng BẬC KHÔNG: A → sp, đồ thị nào là đường thẳng theo t?", a: ["ln[A]_t theo t", "1/[A]_t theo t", "[A]_t theo t (hệ số góc -k)", "căn[A]_t theo t"], c: 2, e: "[A]_t = -kt + [A]₀ có dạng đường thẳng y = ax + b." },
+          { q: "Nhiệt độ tăng từ 20°C lên 50°C với hệ số γ = 2 thì tốc độ tăng bao nhiêu lần?", a: ["6 lần", "8 lần", "16 lần", "3 lần"], c: 1, e: "v₂/v₁ = 2^[(50-20)/10] = 2³ = 8 lần." },
+          { q: "Theo phương trình Arrhenius k = A·e^(-Ea/RT), hằng số k tăng khi:", a: ["Tăng Ea", "Tăng T hoặc giảm Ea", "Giảm T", "Giảm diện tích tiếp xúc"], c: 1, e: "T tăng hoặc Ea giảm làm số mũ âm nhỏ đi, k tăng lên." },
+          { q: "Năng lượng hoạt hóa Ea được định nghĩa là:", a: ["Nhiệt lượng tỏa ra của phản ứng.", "Năng lượng tối thiểu các phân tử cần có để va chạm gây phản ứng.", "Hiệu năng lượng sản phẩm và chất đầu.", "Năng lượng phá vỡ liên kết."], c: 1, e: "Ea là rào cản năng lượng tối thiểu để hình thành phức chất hoạt động." },
+          { q: "Cơ chế làm tăng tốc độ của chất xúc tác là:", a: ["Cung cấp thêm nhiệt.", "Tạo cơ chế mới có năng lượng hoạt hóa Ea thấp hơn.", "Tăng số va chạm ngẫu nhiên.", "Giảm độ phân cực dung môi."], c: 1, e: "Xúc tác tạo phức chất hoạt động mới có Ea thấp hơn, làm tăng số va chạm hiệu quả." },
+          { q: "Phân biệt Bậc phản ứng và Phân tử số:", a: ["Bậc luôn nguyên dương, phân tử số có thể là phân số.", "Bậc là đại lượng thực nghiệm (nguyên, phân số, 0); phân tử số chỉ dùng cho phản ứng cơ bản và luôn nguyên dương (1, 2, 3).", "Phân tử số không phụ thuộc cơ chế.", "Hai khái niệm hoàn toàn trùng nhau."], c: 1, e: "Bậc phản ứng xác định bằng thực nghiệm; phân tử số là số hạt va chạm trong giai đoạn sơ cấp." },
+          { q: "Phản ứng có Ea = 52 kJ/mol. Ở 300 K có k₁. Để k₂ = 10·k₁ thì T₂ xấp xỉ bao nhiêu? (R = 8,314 J/mol·K, ln 10 = 2,303):", a: ["320 K", "338 K", "400 K", "305 K"], c: 1, e: "ln 10 = 2,303 = (52000/8,314)·(1/300 - 1/T₂) ⇒ 1/T₂ = 0,003333 - 0,000368 = 0,002965 ⇒ T₂ ≈ 338 K." }
+        ]
+      },
+      {
+        t: "Dung Dịch Và Dung Dịch Điện Li",
+        d: "Nồng độ dung dịch, định luật Raoult I & II, áp suất thẩm thấu Van't Hoff, định luật pha loãng Ostwald, tính pH đệm và tích số tan Ksp.",
+        th: `
+          <div class="card">
+            <h3 style="color:var(--primary);margin-bottom:0.75rem;">7. Dung dịch & Dung dịch điện li</h3>
+            <p><strong>• Chuyển đổi nồng độ:</strong> C_M = (10 · d · C%) / M.</p>
+            <p><strong>• Định luật Raoult I & II:</strong></p>
+            <div class="formula">ΔP = P₀ · x_ct &nbsp;&nbsp;|&nbsp;&nbsp; ΔT_s = K_s · C_m &nbsp;&nbsp;|&nbsp;&nbsp; ΔT_đ = K_đ · C_m</div>
+            <p><em>* Chú ý quan trọng:</em> Hằng số nghiệm sôi K_s và nghiệm đông K_đ <strong>chỉ phụ thuộc vào bản chất của dung môi</strong>, không phụ thuộc vào chất tan hay nhiệt độ.</p>
+            <p><strong>• Hệ số đẳng trương Van't Hoff:</strong> i = 1 + α(ν - 1). Ví dụ BaCl₂ phân li hoàn toàn (α=1, ν=3) có i = 3.</p>
+            <p><strong>• Định luật Ostwald:</strong> α = √(Ka / C). Khi pha loãng (C giảm) thì độ điện li α tăng.</p>
+            <p><strong>• pH dung dịch:</strong> Axit yếu: pH = 1/2(pKa - lg Ca). Dung dịch đệm axit: pH = pKa + lg(C_muối / C_axit).</p>
+            <div class="callout">
+              <strong>Tích số tan Ksp:</strong> A_m B_n ⇌ m A + n B ⇒ Ksp = m^m · n^n · S^(m+n).<br>
+              PbCl₂ (kiểu AB₂): Ksp = 4S³ ⇒ S = ∛(Ksp/4). Thêm ion chung Cl⁻ làm cân bằng chuyển dịch chiều nghịch, độ tan S giảm mạnh.
+            </div>
+          </div>
+        `,
+        qs: [
+          { q: "Hệ phân tán có kích thước hạt từ 1 đến 100 nm gây hiện tượng tán xạ ánh sáng Tyndall là:", a: ["Dung dịch thực", "Hệ keo (sol)", "Huyền phù thô", "Nhũ tương thô"], c: 1, e: "Hệ keo có kích thước hạt 1 - 100 nm, làm tán xạ ánh sáng tạo nón Tyndall." },
+          { q: "Công thức chuyển đổi giữa C_M và C% với d (g/mL) và M là:", a: ["C_M = (10·d·C%) / M", "C_M = (d·C%) / (10·M)", "C_M = (1000·d) / (M·C%)", "C_M = (M·C%) / (10·d)"], c: 0, e: "C_M = 10 · d · C% / M." },
+          { q: "Nhiệt hòa tan toàn phần ΔH_ht của chất rắn gồm 2 quá trình:", a: ["Bay hơi và ngưng tụ.", "Phá vỡ mạng tinh thể (thu nhiệt) và solvat hóa (tỏa nhiệt).", "Điện phân và khuếch tán.", "Oxy hóa và khử."], c: 1, e: "ΔH_ht = ΔH_phá (thu nhiệt > 0) + ΔH_solvat (tỏa nhiệt < 0)." },
+          { q: "Hằng số nghiệm sôi Ks và nghiệm đông Kđ của dung dịch loãng:", a: ["Phụ thuộc vào chất tan.", "Chỉ phụ thuộc vào bản chất của dung môi (ở P xác định).", "Biến thiên theo nhiệt độ dung dịch.", "Tăng khi tăng nồng độ chất tan."], c: 1, e: "Ks và Kđ chỉ phụ thuộc bản chất dung môi, không phụ thuộc chất tan hay nhiệt độ dung dịch." },
+          { q: "Hòa tan 0,1 mol BaCl₂ vào 1 lít nước (phân li hoàn toàn, α = 1). Hệ số Van't Hoff i là:", a: ["1", "2", "3", "4"], c: 2, e: "BaCl₂ → Ba²⁺ + 2Cl⁻ (ν = 3). i = 1 + 1·(3 - 1) = 3." },
+          { q: "Theo định luật pha loãng Ostwald (α = √(Ka/C)), khi thêm nước vào dung dịch axit yếu thì α sẽ:", a: ["Giảm dần", "Tăng lên", "Không đổi", "Bằng 0"], c: 1, e: "Pha loãng làm nồng độ C giảm ⇒ độ điện li α tăng lên." },
+          { q: "Giá trị pH của CH₃COOH 0,1 M (Ka = 1,8·10⁻⁵, pKa = 4,74) là:", a: ["1,00", "2,87", "4,74", "3,50"], c: 1, e: "pH = 1/2(pKa - lg Ca) = 1/2(4,74 - lg 0,1) = 1/2(5,74) = 2,87." },
+          { q: "Dung dịch đệm gồm CH₃COOH 0,1 M và CH₃COONa 0,2 M (pKa = 4,75) có pH là:", a: ["4,75", "5,05", "4,45", "7,00"], c: 1, e: "pH = pKa + lg(C_m / C_a) = 4,75 + lg(0,2 / 0,1) = 4,75 + 0,301 = 5,05." },
+          { q: "Muối ít tan PbCl₂ có độ tan S (mol/L). Biểu thức tích số tan Ksp là:", a: ["Ksp = S²", "Ksp = 4 S³", "Ksp = 27 S⁴", "Ksp = 2 S²"], c: 1, e: "Ksp = [Pb²⁺][Cl⁻]² = S · (2S)² = 4S³." },
+          { q: "Khi thêm muối NaCl vào dung dịch bão hòa AgCl thì:", a: ["Độ tan AgCl tăng.", "Độ tan AgCl giảm rõ rệt và kết tủa tạo thêm do ion chung Cl⁻.", "Kết tủa tan hoàn toàn.", "Không đổi."], c: 1, e: "Thêm ion chung Cl⁻ làm cân bằng AgCl(r) ⇌ Ag⁺ + Cl⁻ dịch chuyển chiều nghịch, độ tan giảm." }
+        ]
+      },
+      {
+        t: "Điện Hóa Học",
+        d: "Pin điện Galvanic, phương trình Nernst, sức điện động E°pin, quan hệ ΔG° = -nFE°pin, quy tắc α và định luật điện phân Faraday.",
+        th: `
+          <div class="card">
+            <h3 style="color:var(--primary);margin-bottom:0.75rem;">8. Điện hóa học</h3>
+            <p><strong>• Pin điện Galvanic (Daniell):</strong> Anode (-) xảy ra oxy hóa (Zn → Zn²⁺ + 2e); Cathode (+) xảy ra khử (Cu²⁺ + 2e → Cu). Electron chuyển từ Anode sang Cathode. Cầu muối trung hòa điện tích hai ngăn.</p>
+            <div class="formula">Phương trình Nernst (25°C): φ = φ° + (0,0592 / n) · lg([Ox] / [Kh])</div>
+            <div class="formula">Sức điện động: E°_pin = φ°_Cathode - φ°_Anode > 0 &nbsp;&nbsp;|&nbsp;&nbsp; ΔG° = -n·F·E°_pin</div>
+            <p><strong>• Quy tắc α:</strong> Dạng oxy hóa mạnh hơn phản ứng với dạng khử mạnh hơn sinh ra dạng oxy hóa yếu hơn và dạng khử yếu hơn.</p>
+            <div class="callout">
+              <strong>Điện phân dung dịch:</strong><br>
+              • Cathode (-): Cation có φ° lớn hơn bị khử trước. Cation kim loại kiềm/kiềm thổ/Al³⁺ không bị khử trong nước, thay vào đó nước bị khử: 2H₂O + 2e → H₂ + 2OH⁻.<br>
+              • Định luật Faraday: m = (A · I · t) / (n · 96500).
+            </div>
+          </div>
+        `,
+        qs: [
+          { q: "Trong pin điện Daniell Zn-Cu, nhận định nào sau đây là ĐÚNG?", a: ["Cực âm là Cathode xảy ra oxy hóa.", "Cực âm là Anode (Zn) xảy ra oxy hóa Zn; cực dương là Cathode (Cu) xảy ra khử Cu²⁺.", "Electron di chuyển từ Cathode sang Anode.", "Cầu muối dẫn electron."], c: 1, e: "Pin điện: Anode (-) oxy hóa Zn, Cathode (+) khử Cu²⁺, electron chạy từ Anode sang Cathode." },
+          { q: "Vai trò chủ yếu của CẦU MUỐI trong pin điện là:", a: ["Cung cấp electron.", "Trung hòa điện tích hai ngăn dung dịch và khép kín mạch điện.", "Tăng điện thế lên gấp đôi.", "Ngắt dòng điện."], c: 1, e: "Cầu muối chứa ion trơ di chuyển giúp trung hòa điện tích hai ngăn và khép kín mạch." },
+          { q: "Ở 25°C, thế điện cực Cu²⁺/Cu (φ° = +0,34 V) khi [Cu²⁺] = 0,01 M là:", a: ["+0,340 V", "+0,281 V", "+0,399 V", "+0,222 V"], c: 1, e: "φ = 0,34 + (0,0592/2)·lg(0,01) = 0,34 + 0,0296·(-2) = +0,281 V." },
+          { q: "Cho pin tiêu chuẩn (-) Zn | Zn²⁺(1M) || Cu²⁺(1M) | Cu (+). φ°_Zn = -0,76V; φ°_Cu = +0,34V. E°_pin là:", a: ["0,42 V", "1,10 V", "-1,10 V", "-0,42 V"], c: 1, e: "E°_pin = φ°_Cathode - φ°_Anode = 0,34 - (-0,76) = 1,10 V." },
+          { q: "Mối liên hệ giữa ΔG° và E°_pin của phản ứng trong pin điện là:", a: ["ΔG° = -n·F·E°_pin", "ΔG° = n·F·E°_pin", "ΔG° = -R·T·E°_pin", "E°_pin = -n·F·ΔG°"], c: 0, e: "A_điện = -ΔG = n·F·E_pin ⇒ ΔG° = -n·F·E°_pin." },
+          { q: "Cho Fe³⁺/Fe²⁺ (φ° = +0,77V) và I₂/2I⁻ (φ° = +0,54V). Theo quy tắc α, phản ứng tự phát là:", a: ["2Fe²⁺ + I₂ → 2Fe³⁺ + 2I⁻", "2Fe³⁺ + 2I⁻ → 2Fe²⁺ + I₂", "Fe³⁺ + I₂ → Fe²⁺ + 2I⁻", "Không phản ứng."], c: 1, e: "Dạng oxy hóa mạnh hơn (Fe³⁺) oxy hóa dạng khử mạnh hơn (I⁻): 2Fe³⁺ + 2I⁻ → 2Fe²⁺ + I₂." },
+          { q: "Khi điện phân dung dịch NaCl có màng ngăn, quá trình xảy ra tại CATHODE là:", a: ["Na⁺ bị khử thành Na.", "H₂O bị khử tạo H₂ và OH⁻ (2H₂O + 2e → H₂ + 2OH⁻).", "Cl⁻ bị oxy hóa tạo Cl₂.", "H₂O bị oxy hóa tạo O₂."], c: 1, e: "Na⁺ không bị khử trong nước, thay vào đó nước bị khử tạo khí H₂ và OH⁻." },
+          { q: "Điện phân dung dịch chứa Fe³⁺, Cu²⁺, Ag⁺, Ni²⁺ (đều 1M) với điện cực trơ, thứ tự khử tại CATHODE là:", a: ["Ni²⁺ → Cu²⁺ → Fe³⁺ → Ag⁺", "Ag⁺ → Fe³⁺ (thành Fe²⁺) → Cu²⁺ → Ni²⁺", "Cu²⁺ → Ag⁺ → Ni²⁺ → Fe³⁺", "Đồng thời."], c: 1, e: "Thứ tự thế giảm dần: φ°(Ag⁺) > φ°(Fe³⁺/Fe²⁺) > φ°(Cu²⁺) > φ°(Ni²⁺) nên Ag⁺ khử trước." },
+          { q: "Điện phân dung dịch CuSO₄ với ANODE BẰNG ĐỒNG (anode tan), hiện tượng tại Anode là:", a: ["Nước bị oxy hóa tạo O₂.", "Đồng Anode bị oxy hóa tan ra: Cu → Cu²⁺ + 2e.", "Khí SO₂ thoát ra.", "Đồng bám vào Anode."], c: 1, e: "Với Anode Cu, Cu bị oxy hóa tan ra trước nước và anion: Cu → Cu²⁺ + 2e." },
+          { q: "Điện phân dung dịch AgNO₃ với I = 5 A trong 1930 giây. Khối lượng Ag (M = 108) bám vào Cathode là:", a: ["5,4 gam", "10,8 gam", "21,6 gam", "1,08 gam"], c: 1, e: "m = (A·I·t)/(n·F) = (108 × 5 × 1930) / (1 × 96500) = 10,8 gam." }
+        ]
+      }
+    ];
+
+    function renderNav() {
+      const el = document.getElementById('chNav');
+      let html = '';
+      DATA.forEach((ch, i) => {
+        const active = (state.curCh === i) ? 'active' : '';
+        const ans = state.userAns[i] ? Object.keys(state.userAns[i]).length : 0;
+        html += `<button class="tab-btn ${active}" onclick="goTab(${i})">Chương ${i+1} <span class="badge">${ans}/10</span></button>`;
+      });
+      const sumActive = (state.curCh === 8) ? 'active' : '';
+      html += `<button class="tab-btn ${sumActive}" onclick="goTab(8)">📊 Tổng kết 8 chương</button>`;
+      el.innerHTML = html;
+    }
+
+    function goTab(idx) {
+      state.curCh = idx;
+      renderNav();
+      const bn = document.getElementById('chBanner');
+      if (idx === 8) {
+        bn.style.display = 'none';
+        renderSummary();
+        return;
+      }
+      bn.style.display = 'block';
+      const c = DATA[idx];
+      document.getElementById('bnTag').innerText = `CHƯƠNG ${idx+1}`;
+      document.getElementById('bnTitle').innerText = c.t;
+      document.getElementById('bnDesc').innerText = c.d;
+      updateQCount();
+      renderMain();
+    }
+
+    function goSub(sub) {
+      state.sub = sub;
+      document.getElementById('subTheory').classList.toggle('active', sub === 'theory');
+      document.getElementById('subQuiz').classList.toggle('active', sub === 'quiz');
+      renderMain();
+    }
+
+    function updateQCount() {
+      const ans = state.userAns[state.curCh] ? Object.keys(state.userAns[state.curCh]).length : 0;
+      document.getElementById('qCount').innerText = `${ans}/10`;
+    }
+
+    function getQuiz(chIdx) {
+      if (!state.quizData[chIdx]) {
+        state.quizData[chIdx] = DATA[chIdx].qs.map((q, oIdx) => {
+          const opts = q.a.map((txt, idx) => ({ txt, isC: (idx === q.c) }));
+          // shuffle options
+          for (let i = opts.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [opts[i], opts[j]] = [opts[j], opts[i]];
+          }
+          return {
+            q: q.q,
+            opts: opts.map(o => o.txt),
+            c: opts.findIndex(o => o.isC),
+            e: q.e
+          };
+        });
+      }
+      return state.quizData[chIdx];
+    }
+
+    function renderMain() {
+      const el = document.getElementById('mainView');
+      const ch = state.curCh;
+      if (state.sub === 'theory') {
+        el.innerHTML = DATA[ch].th + `
+          <div style="text-align:center;margin-top:1.5rem;">
+            <button class="action-btn" onclick="goSub('quiz')">✍️ Chuyển sang làm 10 câu trắc nghiệm Chương ${ch+1}</button>
+          </div>
+        `;
+      } else {
+        renderQuiz();
+      }
+    }
+
+    function renderQuiz() {
+      const el = document.getElementById('mainView');
+      const ch = state.curCh;
+      const qs = getQuiz(ch);
+      const ans = state.userAns[ch] || {};
+      const ansCount = Object.keys(ans).length;
+      let correctCount = 0;
+      qs.forEach((q, i) => { if (ans[i] === q.c) correctCount++; });
+
+      let h = `
+        <div class="prog-card">
+          <div style="display:flex;justify-content:space-between;font-size:0.85rem;font-weight:700;">
+            <span>Tiến độ: ${ansCount}/10 câu</span>
+            <span>Đúng: <strong style="color:var(--success);">${correctCount}</strong> | Sai: <strong style="color:var(--danger);">${ansCount - correctCount}</strong></span>
+          </div>
+          <div class="prog-track"><div class="prog-fill" style="width:${ansCount * 10}%"></div></div>
+        </div>
+      `;
+
+      qs.forEach((q, qIdx) => {
+        const uAns = ans[qIdx];
+        const done = (uAns !== undefined);
+        h += `
+          <div class="q-card" id="qc_${qIdx}">
+            <div style="font-size:0.8rem;color:var(--primary);font-weight:700;margin-bottom:0.3rem;">CÂU ${qIdx+1} / 10</div>
+            <div class="q-title">${q.q}</div>
+            <div class="opts">
+        `;
+        const letters = ['A', 'B', 'C', 'D'];
+        q.opts.forEach((txt, oIdx) => {
+          let cls = 'opt-btn';
+          if (done) {
+            if (oIdx === q.c) cls += ' is-correct';
+            else if (oIdx === uAns) cls += ' is-wrong';
+          }
+          h += `
+            <button class="${cls}" ${done ? 'disabled' : ''} onclick="chooseOpt(${ch}, ${qIdx}, ${oIdx})">
+              <span class="opt-letter">${letters[oIdx]}</span>
+              <span>${txt}</span>
+            </button>
+          `;
+        });
+        h += `</div>`;
+        if (done) {
+          const isRight = (uAns === q.c);
+          h += `
+            <div class="exp-box">
+              <div style="font-weight:700;color:${isRight ? 'var(--success)' : 'var(--danger)'};margin-bottom:0.25rem;">
+                ${isRight ? '✅ Đúng!' : '❌ Chưa đúng!'} (Đáp án đúng: <strong>${letters[q.c]}</strong>)
+              </div>
+              <div>${q.e}</div>
+            </div>
+          `;
+        }
+        h += `</div>`;
+      });
+
+      if (ansCount === 10) {
+        const pct = correctCount * 10;
+        h += `
+          <div class="res-card">
+            <h3 style="font-size:1.3rem;font-weight:800;">KẾT QUẢ ÔN TẬP CHƯƠNG ${ch+1}</h3>
+            <div class="res-score">${pct}%</div>
+            <p style="font-weight:600;margin:0.5rem 0;">Điểm số: ${correctCount}/10 câu đúng</p>
+            <p style="color:var(--text-muted);font-size:0.9rem;">
+              ${pct >= 80 ? 'Xuất sắc! Bạn đã nắm rất vững kiến thức chương này.' : pct >= 50 ? 'Khá tốt! Hãy ôn lại các câu sai để ghi nhớ lâu hơn.' : 'Cần ôn lại kỹ hơn phần lý thuyết.'}
+            </p>
+            <div style="display:flex;gap:0.75rem;justify-content:center;flex-wrap:wrap;margin-top:1rem;">
+              <button class="action-btn" onclick="retake(${ch})">🔄 Làm lại chương này</button>
+              ${ch < 7 ? `<button class="action-btn" style="background:var(--accent);" onclick="goTab(${ch+1})">Sang Chương ${ch+2} ➔</button>` : `<button class="action-btn" style="background:var(--accent);" onclick="goTab(8)">Xem Tổng kết 8 chương 📊</button>`}
+            </div>
+          </div>
+        `;
+      }
+      el.innerHTML = h;
+    }
+
+    function chooseOpt(ch, qIdx, optIdx) {
+      if (!state.userAns[ch]) state.userAns[ch] = {};
+      if (state.userAns[ch][qIdx] !== undefined) return;
+      state.userAns[ch][qIdx] = optIdx;
+      updateQCount();
+      renderNav();
+      renderQuiz();
+    }
+
+    function retake(ch) {
+      if (state.userAns[ch]) delete state.userAns[ch];
+      delete state.quizData[ch]; // re-shuffle
+      updateQCount();
+      renderNav();
+      renderQuiz();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function renderSummary() {
+      const el = document.getElementById('mainView');
+      let totalAns = 0, totalCor = 0;
+      DATA.forEach((c, idx) => {
+        const ans = state.userAns[idx] || {};
+        const qs = getQuiz(idx);
+        Object.keys(ans).forEach(qI => {
+          totalAns++;
+          if (ans[qI] === qs[qI].c) totalCor++;
+        });
+      });
+
+      let h = `
+        <div class="card">
+          <h2 style="font-size:1.4rem;font-weight:800;color:var(--text);margin-bottom:0.5rem;">Bảng Tổng Kết Toàn Bộ 8 Chương</h2>
+          <p style="color:var(--text-muted);font-size:0.9rem;margin-bottom:1.5rem;">Theo dõi số câu đã làm, số câu đúng và điểm trung bình tích lũy.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(180px, 1fr));gap:1rem;margin-bottom:1.5rem;">
+            <div style="background:var(--subtle);padding:1rem;border-radius:10px;text-align:center;">
+              <div style="font-size:0.8rem;color:var(--text-muted);font-weight:700;">ĐÃ LÀM</div>
+              <div style="font-size:1.8rem;font-weight:800;color:var(--primary);">${totalAns} / 80</div>
+            </div>
+            <div style="background:var(--subtle);padding:1rem;border-radius:10px;text-align:center;">
+              <div style="font-size:0.8rem;color:var(--text-muted);font-weight:700;">CÂU ĐÚNG</div>
+              <div style="font-size:1.8rem;font-weight:800;color:var(--success);">${totalCor} / ${totalAns || 0}</div>
+            </div>
+            <div style="background:var(--subtle);padding:1rem;border-radius:10px;text-align:center;">
+              <div style="font-size:0.8rem;color:var(--text-muted);font-weight:700;">TỈ LỆ ĐÚNG</div>
+              <div style="font-size:1.8rem;font-weight:800;color:var(--accent);">${totalAns > 0 ? Math.round((totalCor/totalAns)*100) : 0}%</div>
+            </div>
+          </div>
+          <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:0.75rem;">Chi tiết từng chương:</h3>
+          <div class="grid-summary">
+      `;
+      DATA.forEach((c, idx) => {
+        const ans = state.userAns[idx] || {};
+        const qs = getQuiz(idx);
+        let cor = 0;
+        Object.keys(ans).forEach(qI => { if (ans[qI] === qs[qI].c) cor++; });
+        const aCount = Object.keys(ans).length;
+        h += `
+          <div class="sum-item">
+            <div>
+              <div style="font-size:0.75rem;font-weight:700;color:var(--primary);">CHƯƠNG ${idx+1}</div>
+              <div style="font-weight:700;font-size:0.95rem;margin:0.25rem 0;">${c.t}</div>
+              <div style="font-size:0.82rem;color:var(--text-muted);">Hoàn thành: ${aCount}/10 câu (${cor} đúng)</div>
+            </div>
+            <button class="action-btn" style="margin-top:0.5rem;padding:0.45rem 1rem;font-size:0.8rem;width:fit-content;" onclick="goTab(${idx})">Vào học ➔</button>
+          </div>
+        `;
+      });
+      h += `</div></div>`;
+      el.innerHTML = h;
+    }
+
+    function toggleTheme() {
+      const cur = document.body.getAttribute('data-theme');
+      const next = cur === 'dark' ? 'light' : 'dark';
+      document.body.setAttribute('data-theme', next);
+      state.theme = next;
+      document.getElementById('themeIco').innerText = next === 'dark' ? '☀️' : '🌙';
+      document.getElementById('themeLbl').innerText = next === 'dark' ? 'Sáng' : 'Tối';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderNav();
+      goTab(0);
+    });
+  </script>
+</body>
+</html>
